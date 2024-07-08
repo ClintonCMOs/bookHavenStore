@@ -1,0 +1,261 @@
+body {
+  font-family: "Poppins", sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 100px;
+  border-bottom: solid #e0e0e0;
+}
+
+.contact-info {
+  font-size: 14px;
+}
+
+.social-icons a {
+  color: #173f5f;
+  margin: 0 10px;
+  text-decoration: none;
+}
+
+.mid-bar {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  padding: 10px 100px;
+  justify-content: space-between;
+}
+.account--icons {
+  display: flex;
+  gap: 35px;
+}
+.account--icons a {
+  text-decoration: none;
+}
+.fa-user,
+.fa-shopping-cart,
+.fa-heart {
+  margin-right: 10px;
+  color: white; /* Sets the inside color to white */
+  -webkit-text-stroke: 2px #173f5f;
+}
+
+.search-bar {
+  position: relative;
+  width: 500px;
+}
+.search-bar input[type="text"] {
+  padding: 5px 20px;
+  border: none;
+  border-radius: 20px;
+  background-color: #f6f6f6;
+  flex: 1;
+  width: 100%;
+  box-sizing: border-box;
+  height: 40px;
+}
+
+@media (max-width: 400px) {
+  .search-bar {
+    width: 100%; /* Full width on smaller screens */
+  }
+}
+.fa-search {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 0;
+  width: 20px;
+  color: grey;
+  margin-right: 5px;
+}
+
+.home--navbar {
+  background-color: #173f5f;
+
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+}
+
+.home--logo {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  overflow: hidden; /* Ensure the image is not displayed outside the circle */
+}
+
+.home--logo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Maintain aspect ratio and cover the entire space */
+}
+
+.home--nav--links {
+  list-style: none;
+  display: flex;
+  flex: 1;
+  margin: 0 150px;
+}
+.home--nav--links a {
+  color: white; /* Set your desired color here */
+  text-decoration: none;
+  font-weight: 600; /* Optional: make the text bold */
+  transition: 0.3s ease-in-out;
+  font-size: 18px;
+  position: relative;
+}
+
+.home--nav--links li {
+  padding: 0 40px;
+}
+
+.home--nav--links a:hover,
+.home--nav--links a.active {
+  color: #17cf97;
+}
+
+.hero {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background: linear-gradient(to right, #ffe5e5, #ffffff);
+  padding: 50px 20px;
+  margin: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.hero-content {
+  max-width: 50%;
+  margin-right: 20px;
+}
+
+.hero-content h1 {
+  font-size: 48px;
+  color: #4a3f6d;
+}
+
+.hero-content p {
+  font-size: 18px;
+  color: #4a3f6d;
+  line-height: 1.6;
+}
+
+.home-book-cover img {
+  max-width: 100%;
+  height: auto;
+  border: none; /* Remove any border */
+  padding: 0; /* Remove any padding */
+  margin: 0; /* Remove any margin */
+}
+
+.release--books {
+  display: flex;
+  align-items: center;
+  padding: 10px 20px;
+  margin: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center; /* Center text horizontally */
+  flex-wrap: wrap;
+}
+
+.release--books h2 {
+  margin-bottom: 20px; /* Add space between heading and cards */
+  display: block;
+  width: 100%;
+  text-align: left;
+}
+
+.card-container {
+  display: flex;
+  flex-wrap: wrap; /* Allow cards to wrap to the next line */
+  justify-content: center; /* Center cards horizontally */
+}
+
+.card {
+  margin: 0 10px; /* Add space between cards */
+  max-width: 200px; /* Set a maximum width for each card */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 5px;
+  border: 10px;
+}
+
+.card img {
+  height: 240px;
+}
+
+.card h3 {
+  font-size: 15px;
+  margin-top: 5px;
+  font-weight: normal;
+  margin-bottom: 0px;
+}
+.card h4 {
+  font-size: 12px;
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+.bookPrice {
+  color: #ed553b;
+  font-weight: bolder;
+}
+.bookAuthor {
+  color: #888888;
+  font-weight: lighter;
+}
+.bookTitle {
+  color: #393280;
+}
+
+footer {
+  background-color: #173f5f;
+  color: white;
+  text-align: center;
+  padding: 20px 0;
+}
+
+.social-links a {
+  color: white;
+  margin: 0 10px;
+  text-decoration: none;
+}
+
+.footer-links h3 {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.footer-links ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-links li {
+  margin-bottom: 5px;
+}
+
+.footer-links a {
+  color: white;
+  text-decoration: none;
+}
+
+.footer-links a:hover {
+  text-decoration: underline;
+}
+
+.footer-info {
+  display: flex;
+  justify-content: center;
+}
+.footer-links {
+  margin-right: 100px;
+}
