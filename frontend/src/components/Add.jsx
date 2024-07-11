@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import BACKEND_URL from "../apiConfig";
+
 const Add = () => {
   const [book, setBook] = useState({
     isbn: "",
@@ -19,7 +21,7 @@ const Add = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await axios.post("http://localhost:5555/books", book);
+      const response = await axios.post(`${BACKEND_URL}/books`, book);
       console.log("Book added successfully:", response.data);
       // Update the success message
       setSuccessMessage("Book added successfully!");

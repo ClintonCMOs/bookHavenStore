@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import BACKEND_URL from "../apiConfig";
 
 const Show = () => {
   const [books, setBooks] = useState([]);
 
   useEffect(() => {
-    fetch("http://localhost:5555/books")
+    fetch(`${BACKEND_URL}/books`)
       .then((response) => response.json())
       .then((data) => setBooks(data.data))
       .catch((error) => console.error("Error fetching data:", error));
@@ -32,7 +33,7 @@ const Show = () => {
             <tr key={book._id}>
               <td>
                 <img
-                  src={book.coverImage || "../src/assets/bookcover1.png"}
+                  src={book.imageUrl}
                   alt={book.title}
                   className="book-cover"
                 />

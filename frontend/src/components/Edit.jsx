@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import BACKEND_URL from "../apiConfig";
 
 const Edit = () => {
   const [isbn, setIsbn] = useState("");
@@ -23,7 +24,7 @@ const Edit = () => {
   // Function to handle ISBN search
   const handleSearch = async () => {
     try {
-      const response = await axios.get(`http://localhost:5555/books/${isbn}`);
+      const response = await axios.get(`${BACKEND_URL}/books/${isbn}`);
       setBook(response.data);
     } catch (error) {
       console.error("Error fetching book:", error);

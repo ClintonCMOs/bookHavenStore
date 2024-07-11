@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import BACKEND_URL from "../apiConfig";
 import homePLogo from "../assets/booklogo.png";
 import homeBookCover from "../assets/bookcover1.png";
 
@@ -8,12 +9,12 @@ import "../static/homestyles.css";
 const HomePage = () => {
   const [books, setBooks] = useState([]);
   useEffect(() => {
-    fetch("http://localhost:5555/books")
+    fetch(`${BACKEND_URL}/books`)
       .then((response) => response.json())
       .then((data) => setBooks(data.data))
       .catch((error) => console.error("Error fetching data", error));
   }, []);
-
+  console.log(books);
   return (
     <div>
       <header>

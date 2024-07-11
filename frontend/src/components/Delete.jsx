@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import BACKEND_URL from "../apiConfig";
 
 const Delete = () => {
   const [bookIsbn, setbookIsbn] = useState("");
@@ -17,7 +18,7 @@ const Delete = () => {
     }
 
     try {
-      await axios.delete(`http://localhost:5555/books/${bookIsbn}`);
+      await axios.delete(`${BACKEND_URL}/books/${bookIsbn}`);
       setMessage(`Book with Isbn "${bookIsbn}" has been deleted successfully.`);
       setbookIsbn("");
     } catch (error) {
