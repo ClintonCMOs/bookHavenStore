@@ -15,8 +15,10 @@ const Register = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    axios.post("", { formData });
-    console.log("Submitted:", formData);
+    axios
+      .post("", { formData })
+      .then((result) => console.log(result))
+      .catch((err) => console.log(err));
   };
 
   return (
@@ -30,12 +32,23 @@ const Register = () => {
         <h3>Register to BookHaven</h3>
         <form onSubmit={handleSubmit}>
           <div className="login-register-form-group">
-            <label>Name</label>
+            <label>FirstName</label>
             <input
               placeholder=""
               type="text"
-              name="name"
-              value={formData.name}
+              name="firstName"
+              value={formData.firstName}
+              onChange={handleChange}
+              required
+            />
+          </div>
+          <div className="login-register-form-group">
+            <label>LastName</label>
+            <input
+              placeholder=""
+              type="text"
+              name="lastName"
+              value={formData.lastName}
               onChange={handleChange}
               required
             />
