@@ -40,7 +40,7 @@ const Edit = () => {
     event.preventDefault();
     try {
       const response = await axios.put(
-        `http://localhost:5555/books/${book.isbn}`,
+        `${BACKEND_URL}/books/${book.isbn}`,
         book
       );
       console.log("Book updated successfully:", response.data);
