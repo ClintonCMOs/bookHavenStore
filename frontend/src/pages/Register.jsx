@@ -1,24 +1,50 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
+
 const Register = () => {
   const [formData, setFormData] = useState({
-    name: "",
+    firstName: "",
+    lastName: "",
     email: "",
     password: "",
   });
+  const [successMessage, setSuccessMessage] = useState("");
+  const navigate = useNavigate();
 
   const handleChange = (event) => {
     const { name, value } = event.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    axios
-      .post("", { formData })
-      .then((result) => console.log(result))
-      .catch((err) => console.log(err));
+    try {
+      const response = await axios.post(
+        "http://localhost:5555/users/register",
+        formData
+      );
+      console.log("User registered successfully:", response.data);
+
+      // Update the success message
+      setSuccessMessage("User registered successfully!");
+      // Clear the form
+      setFormData({
+        firstName: "",
+        lastName: "",
+        email: "",
+        password: "",
+      });
+
+      // Set a timer to clear the success message after 5 seconds
+      setTimeout(() => {
+        setSuccessMessage("");
+      }, 5000);
+
+      navigate("/login");
+    } catch (err) {
+      console.error("Error registering user:", err);
+    }
   };
 
   return (
@@ -32,7 +58,7 @@ const Register = () => {
         <h3>Register to BookHaven</h3>
         <form onSubmit={handleSubmit}>
           <div className="login-register-form-group">
-            <label>FirstName</label>
+            <label>First Name</label>
             <input
               placeholder=""
               type="text"
@@ -43,7 +69,7 @@ const Register = () => {
             />
           </div>
           <div className="login-register-form-group">
-            <label>LastName</label>
+            <label>Last Name</label>
             <input
               placeholder=""
               type="text"
@@ -78,9 +104,12 @@ const Register = () => {
             />
           </div>
 
-          <button className="login-register-button" onClick={handleSubmit}>
+          <button type="submit" className="login-register-button">
             Register
           </button>
+          {successMessage && (
+            <span className="success-message">{successMessage}</span>
+          )}
         </form>
         <p>
           Already have an account? <Link to="/login">Login</Link>

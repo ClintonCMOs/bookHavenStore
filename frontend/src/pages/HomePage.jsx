@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import BACKEND_URL from "../apiConfig";
 import homePLogo from "../assets/booklogo.png";
 import homeBookCover from "../assets/bookcover1.png";
-
 import "../static/homestyles.css";
 
 const HomePage = () => {
@@ -47,7 +46,7 @@ const HomePage = () => {
             <i className="fas fa-search"></i>
           </div>
           <div className="account--icons">
-            <Link to="/admin">
+            <Link to="/login">
               <i className="fas fa-user"></i> Account
             </Link>
             <Link to="#">

@@ -1,5 +1,6 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom"; // Import useNavigate
+import axios from "axios";
 
 const Login = () => {
   const [formData, setFormData] = React.useState({
@@ -7,15 +8,32 @@ const Login = () => {
     password: "",
   });
 
+  const navigate = useNavigate(); // Initialize useNavigate
+
   const handleChange = (event) => {
     const { name, value } = event.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log("Submitted:", formData);
+    try {
+      const response = await axios.post(
+        "http://localhost:5555/users/login",
+        formData
+      );
+      if (response.data === "Success") {
+        console.log("User logged in successfully:", response.data);
+
+        navigate("/admin"); // Redirect to "/admin" after successful login
+      } else {
+        console.log("Invalid credentials");
+      }
+    } catch (err) {
+      console.error("Invalid credentials:", err);
+    }
   };
+
   return (
     <div className="login-register-container">
       <div style={{ textAlign: "left", marginBottom: "20px" }}>
@@ -26,28 +44,32 @@ const Login = () => {
       <h3>Login to BookHaven</h3>
       <form onSubmit={handleSubmit}>
         <div className="login-register-form-group">
-          <label>Email</label>
+          <label htmlFor="email">Email</label>
           <input
+            id="email"
             placeholder=""
             type="email"
             name="email"
+            aria-label="Email"
             value={formData.email}
             onChange={handleChange}
             required
           />
         </div>
         <div className="login-register-form-group">
-          <label>Password</label>
+          <label htmlFor="password">Password</label>
           <input
+            id="password"
             placeholder=""
             type="password"
             name="password"
+            aria-label="Password"
             value={formData.password}
             onChange={handleChange}
             required
           />
         </div>
-        <button className="login-register-button" onClick={handleSubmit}>
+        <button type="submit" className="login-register-button">
           Log In
         </button>
       </form>
