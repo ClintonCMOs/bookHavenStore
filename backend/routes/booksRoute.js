@@ -1,41 +1,18 @@
-import express from "express";
-
-import mongoose from "mongoose";
-
-import { Book } from "../models/bookModel.js";
-
+const express = require("express");
+const { Book } = require("../models/bookModel.js");
 const router = express.Router();
 
 // Route for saving a new book
 router.post("/", async (req, res) => {
   try {
-    if (
-      !req.body.isbn ||
-      !req.body.title ||
-      !req.body.author ||
-      !req.body.publishYear ||
-      !req.body.price ||
-      !req.body.imageUrl
-    ) {
-      return res.status(400).send({
-        message: "Send all required fields:",
-      });
+    const { isbn, title, author, publishYear, price, imageUrl } = req.body;
+    if (!isbn || !title || !author || !publishYear || !price || !imageUrl) {
+      return res.status(400).send({ message: "Send all required fields" });
     }
-
-    const newBook = {
-      isbn: req.body.isbn,
-      title: req.body.title,
-      author: req.body.author,
-      publishYear: req.body.publishYear,
-      price: req.body.price,
-      imageUrl: req.body.imageUrl,
-    };
-
-    const book = await Book.create(newBook);
-
-    return res.status(201).send(book);
+    const newBook = await Book.create(req.body);
+    return res.status(201).send(newBook);
   } catch (error) {
-    console.log(error.message);
+    console.error("Error Saving a new book:", error.message);
     res.status(500).send({ message: error.message });
   }
 });
@@ -50,7 +27,7 @@ router.get("/", async (req, res) => {
       data: books,
     });
   } catch (error) {
-    console.log(error.message);
+    console.error("Error fetching books:", error.message);
     res.status(500).send({ message: error.message });
   }
 });
@@ -59,11 +36,15 @@ router.get("/", async (req, res) => {
 router.get("/:isbn", async (req, res) => {
   try {
     const { isbn } = req.params;
-    const books = await Book.findOne({ isbn: isbn });
+    const book = await Book.findOne({ isbn });
 
-    return res.status(200).json(books);
+    if (!book) {
+      return res.status(404).json({ message: "Book not found." });
+    }
+
+    return res.status(200).json(book);
   } catch (error) {
-    console.log(error.message);
+    console.error("Error fetching book:", error.message);
     res.status(500).send({ message: error.message });
   }
 });
@@ -72,33 +53,28 @@ router.get("/:isbn", async (req, res) => {
 router.put("/:isbn", async (req, res) => {
   try {
     const { isbn } = req.params;
+    const { title, author, publishYear, price, imageUrl } = req.body;
 
-    if (
-      !req.body.isbn ||
-      !req.body.title ||
-      !req.body.author ||
-      !req.body.publishYear ||
-      !req.body.price ||
-      !req.body.imageUrl
-    ) {
+    if (!isbn || !title || !author || !publishYear || !price || !imageUrl) {
       return res.status(400).send({
         message: "Send all required fields:",
       });
     }
 
-    const result = await Book.findOneAndUpdate({ isbn }, req.body, {
+    const updatedBook = await Book.findOneAndUpdate({ isbn }, req.body, {
       new: true,
+      runValidators: true,
     });
 
-    if (!result) {
-      return res.status(404).json({ message: "Book not found" });
+    if (!updatedBook) {
+      return res.status(404).json({ message: "Book not found." });
     }
 
     return res
       .status(200)
-      .json({ message: "Book updated successfully", book: result });
+      .json({ message: "Book updated successfully", book: updatedBook });
   } catch (error) {
-    console.log(error.message);
+    console.error("Error updating book:", error.message);
     res.status(500).send({ message: error.message });
   }
 });
@@ -107,16 +83,17 @@ router.put("/:isbn", async (req, res) => {
 router.delete("/:isbn", async (req, res) => {
   try {
     const { isbn } = req.params;
-    const result = await Book.findOneAndDelete({ isbn });
+    const deletedBook = await Book.findOneAndDelete({ isbn });
 
-    if (!result) {
-      return res.status(404).json({ message: "Book not found" });
+    if (!deletedBook) {
+      return res.status(404).json({ message: "Book not found." });
     }
-    return res.status(200).send({ message: "Book deleted successfully" });
+
+    return res.status(200).json({ message: "Book deleted successfully" });
   } catch (error) {
-    console.log(error.message);
-    return res.status(500).send({ message: error.message });
+    console.error("Error deleting book:", error.message);
+    res.status(500).send({ message: error.message });
   }
 });
 
-export default router;
+module.exports = router;
